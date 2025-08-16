@@ -14,13 +14,12 @@ public class AuthorizationService {
 
         String[] person = new String[] {login,password,confirmPassword};
 
-        Pattern pattern = Pattern.compile("^[0-9]*[a-zA-Z]*[_]*(?=\\S+$).{8,}$");
-        Pattern pattern1 = Pattern.compile("[а-яёА-ЯЁ]+");
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9_]{1,20}$");
 
         for (int i = 0; i < person.length-1; i++) {
             Matcher matcher = pattern.matcher(person[i]);
-            Matcher matcher1 = pattern1.matcher(person[i]);
-            if(!matcher.find() && matcher1.find() || person[i].length() > 20 || person[i].equals("")){
+
+            if(!matcher.find()  || person[i].length() > 20 || person[i].equals("")){
                 if (i == 0){
                     throw new WrongLoginException();
                 }else {
